@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -8,6 +9,7 @@ import '../../../data/entertainment_response.dart';
 import '../../../data/headline_response.dart';
 import '../../../data/sports_response.dart';
 import '../../../data/technology_response.dart';
+import '../../home/views/home_view.dart';
 import '../controllers/dashboard_controller.dart';
 
 class DashboardView extends GetView<DashboardController> {
@@ -22,8 +24,16 @@ class DashboardView extends GetView<DashboardController> {
       //Widget SafeArea menempatkan semua konten widget ke dalam area yang aman (safe area) dari layar.
       child: DefaultTabController(
         //Widget DefaultTabController digunakan untuk mengatur tab di aplikasi.
-        length: 4,
+        length: 5,
         child: Scaffold(
+          floatingActionButton: FloatingActionButton(
+  onPressed: () async {
+    await auth.erase();
+    Get.offAll(() =>  HomeView());
+  },
+  backgroundColor: Colors.redAccent,
+  child: const Icon(Icons.logout_rounded),
+),
           // Widget Scaffold digunakan sebagai struktur dasar aplikasi.
           appBar: PreferredSize(
             preferredSize: const Size.fromHeight(
@@ -67,6 +77,7 @@ class DashboardView extends GetView<DashboardController> {
                       Tab(text: "Teknologi"),
                       Tab(text: "Olahraga"),
                       Tab(text: "Hiburan"),
+                      Tab(text: "Profile"),
                     ],
                   ),
                 ),
@@ -79,6 +90,8 @@ class DashboardView extends GetView<DashboardController> {
               teknologi(controller, scrollController),
               sports(controller, scrollController),
               entertainment(controller, scrollController),
+              profile(),
+
             ],
           ),
         ),
@@ -440,4 +453,109 @@ class DashboardView extends GetView<DashboardController> {
       },
     );
   }
+  
+ ListView profile() {
+  return ListView(
+    children: [
+      // Container(
+      //   padding: EdgeInsets.only(top:5, left: 8,right: 8,bottom: 5),
+      //   decoration: BoxDecoration(
+      //   border: Border.fromBorderSide(
+      //     BorderSide(width: 1,color: Colors.black12),
+      //   )
+      // ),
+      //   child: Row(
+      //   children: [
+      //     Row(
+      //       children: [
+      //         CircleAvatar(
+      //         backgroundImage: NetworkImage('https://i0.wp.com/dianisa.com/wp-content/uploads/2022/08/20.-Profil-WA-Kosong.jpg?resize=1000%2C580&ssl=1'),
+      //         radius: 60,
+      //         ),
+      //         Container(
+      //             child: Text("Wanda Nugraha",style: TextStyle(
+      //           fontSize: 20,
+      //           fontWeight: FontWeight.bold,
+      //         ),),
+      //         ),
+                
+      //         Container(
+            
+      //             child: Text("Rekayasa Prangkat Lunak",style: TextStyle(
+      //           fontSize: 10,
+      //           color: Colors.grey,
+      //         ),),
+                
+      //         )
+      //       ],
+      //     ),
+
+                 
+      //   ],
+      // ),
+      // )
+      Padding(
+          padding: EdgeInsets.all(10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(140),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 10,
+                      blurRadius: 5,
+                      offset: Offset(0, 3),
+                    ),
+                  ],
+                ),
+                child: CircleAvatar(
+                  radius: 120,
+                  backgroundImage: NetworkImage('https://i0.wp.com/dianisa.com/wp-content/uploads/2022/08/20.-Profil-WA-Kosong.jpg?resize=1000%2C580&ssl=1'),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                "Wanda Nugraha",
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 18,
+              ),
+              Text("Rekayasa Prangkat Lunak"),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT17IXIFaBvNWXWBOjmK8-xy0dXKe_wlTFu81ENiS91AImYHbx1o_M5B4XAvAloP-2Spes&usqp=CAU',
+                  height: 40,
+                  width: 40,
+                  ),
+                  
+                  Image.network('https://cdn-icons-png.flaticon.com/512/87/87390.png',
+                  height: 40,
+                  width: 40,
+                  ),
+
+                  Image.network('https://buatlogoonline.com/wp-content/uploads/2022/09/Logo-WA-Hitam-Putih.png',
+                  height: 40,
+                  width: 40,),
+
+                  // Icon(FontAwesomeIcons.facebook)
+
+                ],
+              ),
+            ],
+          ),
+      )
+    ],
+  );
+ }
 }
