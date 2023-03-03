@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:lottie/lottie.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import '../../../data/entertainment_response.dart';
 import '../../../data/headline_response.dart';
 import '../../../data/sports_response.dart';
@@ -534,24 +534,62 @@ class DashboardView extends GetView<DashboardController> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Image.network('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT17IXIFaBvNWXWBOjmK8-xy0dXKe_wlTFu81ENiS91AImYHbx1o_M5B4XAvAloP-2Spes&usqp=CAU',
-                  height: 40,
-                  width: 40,
-                  ),
                   
-                  Image.network('https://cdn-icons-png.flaticon.com/512/87/87390.png',
-                  height: 40,
-                  width: 40,
+                  
+                  IconButton(
+                    icon: const FaIcon(FontAwesomeIcons.instagram),
+                    color: Colors.black,
+                    onPressed: () async{
+                      if(!await launchUrl(
+                        Uri.parse('https://www.instagram.com/awan10_7/?next=%2F'))) {
+                          throw Exception('Tidak Bisa Membuka');
+                        }
+                    },
+                    iconSize: 40,
                   ),
-
-                  Image.network('https://buatlogoonline.com/wp-content/uploads/2022/09/Logo-WA-Hitam-Putih.png',
-                  height: 40,
-                  width: 40,),
-
-                  // Icon(FontAwesomeIcons.facebook)
-
+                  IconButton(
+                    icon: const FaIcon(FontAwesomeIcons.github),
+                    color: Colors.black,
+                    onPressed: () async{
+                      if(!await launchUrl(
+                        Uri.parse('https://github.com/WndaNugraha'))) {
+                          throw Exception('Tidak Bisa Membuka');
+                        }
+                    },
+                    iconSize: 40,
+                  ),
+                  IconButton(
+                    icon: const FaIcon(FontAwesomeIcons.facebook),
+                    color: Colors.black,
+                    onPressed: () async{
+                      if(!await launchUrl(
+                        Uri.parse('https://web.facebook.com/wanda.nugraha.7712'))) {
+                          throw Exception('Tidak Bisa Membuka');
+                        }
+                    },
+                    iconSize: 40,
+                  ),
                 ],
               ),
+              Column(
+                children: [
+                   SizedBox(
+                    height: 20,
+                  ),
+                const Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Text(' Hallo.. nama saya Wanda Nugraha, Saya bersekolah di SMK Assalaam Bandung jurusan RPL(Rekayasa Prangkat Lunak), Saya memilih jurusan RPL karena saya suka mempelajari ilmu tentang komputer baik itu hardware maupun software',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      height: 1.5,
+                    ),
+                    textAlign: TextAlign.justify,
+                    ),
+                  ),
+                  const SizedBox(height: 30,),
+                ],
+              )
             ],
           ),
       )
